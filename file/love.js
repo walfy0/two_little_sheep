@@ -1,15 +1,15 @@
-(function(window){
+﻿(function(window){
 
     function random(min, max) {
         return min + Math.floor(Math.random() * (max - min + 1));
     }
 
-    function bezier(cp, t) {
+    function bezier(cp, t) {  
         var p1 = cp[0].mul((1 - t) * (1 - t));
         var p2 = cp[1].mul(2 * t * (1 - t));
-        var p3 = cp[2].mul(t * t);
+        var p3 = cp[2].mul(t * t); 
         return p1.add(p2).add(p3);
-    }
+    }  
 
     function inheart(x, y, r) {
         // x^2+(y-(x^2)^(1/3))^2 = 1
@@ -101,7 +101,7 @@
             this.cirle.point = this.cirle.point.add(new Point(x, y));
         },
         canMove: function() {
-            return this.cirle.point.y < (this.tree.height + 20);
+            return this.cirle.point.y < (this.tree.height + 20); 
         },
         move: function(x, y) {
             this.clear();
@@ -122,7 +122,7 @@
         },
         drawHeart: function() {
             var ctx = this.tree.ctx, heart = this.heart;
-            var point = heart.point, color = heart.color,
+            var point = heart.point, color = heart.color, 
                 scale = heart.scale;
             ctx.save();
             ctx.fillStyle = color;
@@ -139,7 +139,7 @@
         },
         drawCirle: function() {
             var ctx = this.tree.ctx, cirle = this.cirle;
-            var point = cirle.point, color = cirle.color,
+            var point = cirle.point, color = cirle.color, 
                 scale = cirle.scale, radius = cirle.radius;
             ctx.save();
             ctx.fillStyle = color;
@@ -147,14 +147,14 @@
             ctx.scale(scale, scale);
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+    	    ctx.arc(0, 0, radius, 0, 2 * Math.PI);
             ctx.closePath();
             ctx.fill();
             ctx.restore();
         },
         drawText: function() {
             var ctx = this.tree.ctx, heart = this.heart;
-            var point = heart.point, color = heart.color,
+            var point = heart.point, color = heart.color, 
                 scale = heart.scale;
             ctx.save();
             ctx.strokeStyle = color;
@@ -162,14 +162,14 @@
             ctx.translate(point.x, point.y);
             ctx.scale(scale, scale);
             ctx.moveTo(0, 0);
-            ctx.lineTo(15, 15);
-            ctx.lineTo(60, 15);
+    	    ctx.lineTo(15, 15);
+    	    ctx.lineTo(60, 15);
             ctx.stroke();
 
             ctx.moveTo(0, 0);
             ctx.scale(0.75, 0.75);
-            ctx.font = "12px 寰蒋闆呴粦,Verdana"; // 瀛楀彿鑲夸箞娌℃湁鐢�? (藟(鈭�)藟)
-            ctx.fillText("click here", 23, 16);
+            ctx.font = "12px 微软雅黑,Verdana"; // 字号肿么没有用? (ˉ(∞)ˉ)
+            ctx.fillText("Come Baby", 23, 10);
             ctx.restore();
         },
         clear: function() {
@@ -206,8 +206,8 @@
             ctx.translate(point.x, point.y);
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.lineTo(len, 0);
-            ctx.lineTo(-len, 0);
+    	    ctx.lineTo(len, 0);
+    	    ctx.lineTo(-len, 0);
             ctx.stroke();
             ctx.restore();
 
@@ -225,7 +225,7 @@
         this.opt = opt || {};
 
         this.record = {};
-
+        
         this.initSeed();
         this.initFooter();
         this.initBranch();
@@ -260,7 +260,7 @@
         initBloom: function() {
             var bloom = this.opt.bloom || {};
             var cache = [],
-                num = bloom.num || 500,
+                num = bloom.num || 500, 
                 width = bloom.width || this.width,
                 height = bloom.height || this.height,
                 figure = this.seed.heart.figure;
@@ -287,16 +287,16 @@
 
             ctx.save();
             ctx.putImageData(image, point.x, point.y);
-            ctx.restore();
+        	ctx.restore();
         },
 
         addBranch: function(branch) {
-            this.branchs.push(branch);
+        	this.branchs.push(branch);
         },
 
         addBranchs: function(branchs){
             var s = this, b, p1, p2, p3, r, l, c;
-            for (var i = 0; i < branchs.length; i++) {
+        	for (var i = 0; i < branchs.length; i++) {
                 b = branchs[i];
                 p1 = new Point(b[0], b[1]);
                 p2 = new Point(b[2], b[3]);
@@ -304,15 +304,15 @@
                 r = b[6];
                 l = b[7];
                 c = b[8]
-                s.addBranch(new Branch(s, p1, p2, p3, r, l, c));
+                s.addBranch(new Branch(s, p1, p2, p3, r, l, c)); 
             }
         },
 
         removeBranch: function(branch) {
             var branchs = this.branchs;
-            for (var i = 0; i < branchs.length; i++) {
-                if (branchs[i] === branch) {
-                    branchs.splice(i, 1);
+        	for (var i = 0; i < branchs.length; i++) {
+        		if (branchs[i] === branch) {
+        			branchs.splice(i, 1);
                 }
             }
         },
@@ -322,7 +322,7 @@
         },
         grow: function() {
             var branchs = this.branchs;
-            for (var i = 0; i < branchs.length; i++) {
+    	    for (var i = 0; i < branchs.length; i++) {
                 var branch = branchs[i];
                 if (branch) {
                     branch.grow();
@@ -353,10 +353,10 @@
                 }
             }
         },
-
+        
         canFlower: function() {
             return !!this.blooms.length;
-        },
+        }, 
         flower: function(num) {
             var s = this, blooms = s.bloomsCache.splice(0, num);
             for (var i = 0; i < blooms.length; i++) {
@@ -370,7 +370,7 @@
 
         snapshot: function(k, x, y, width, height) {
             var ctx = this.ctx;
-            var image = ctx.getImageData(x, y, width, height);
+            var image = ctx.getImageData(x, y, width, height); 
             this.record[k] = {
                 image: image,
                 point: new Point(x, y),
@@ -388,15 +388,15 @@
                 image = rec.image,
                 speed = rec.speed || 10,
                 width = rec.width,
-                height = rec.height;
+                height = rec.height; 
 
             i = point.x + speed < x ? point.x + speed : x;
-            j = point.y + speed < y ? point.y + speed : y;
+            j = point.y + speed < y ? point.y + speed : y; 
 
             ctx.save();
             ctx.clearRect(point.x, point.y, width, height);
             ctx.putImageData(image, i, j);
-            ctx.restore();
+        	ctx.restore();
 
             rec.point = new Point(i, j);
             rec.speed = speed * 0.95;
@@ -413,7 +413,7 @@
                 for (var i = 0; i < blooms.length; i++) {
                     blooms[i].jump();
                 }
-            }
+            } 
             if ((blooms.length && blooms.length < 3) || !blooms.length) {
                 var bloom = this.opt.bloom || {},
                     width = bloom.width || this.width,
@@ -433,15 +433,15 @@
         this.point2 = point2;
         this.point3 = point3;
         this.radius = radius;
-        this.length = length || 100;
+        this.length = length || 100;    
         this.len = 0;
-        this.t = 1 / (this.length - 1);
+        this.t = 1 / (this.length - 1);   
         this.branchs = branchs || [];
     }
 
     Branch.prototype = {
         grow: function() {
-            var s = this, p;
+            var s = this, p; 
             if (s.len <= s.length) {
                 p = bezier([s.point1, s.point2, s.point3], s.len * s.t);
                 s.draw(p);
@@ -456,15 +456,15 @@
             var s = this;
             var ctx = s.tree.ctx;
             ctx.save();
-            ctx.beginPath();
-            ctx.fillStyle = 'rgb(35, 31, 32)';
+        	ctx.beginPath();
+        	ctx.fillStyle = 'rgb(35, 31, 32)';
             ctx.shadowColor = 'rgb(35, 31, 32)';
             ctx.shadowBlur = 2;
-            ctx.moveTo(p.x, p.y);
-            ctx.arc(p.x, p.y, s.radius, 0, 2 * Math.PI);
-            ctx.closePath();
-            ctx.fill();
-            ctx.restore();
+        	ctx.moveTo(p.x, p.y);
+        	ctx.arc(p.x, p.y, s.radius, 0, 2 * Math.PI);
+        	ctx.closePath();
+        	ctx.fill();
+        	ctx.restore();
         }
     }
 
